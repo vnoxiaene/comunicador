@@ -23,10 +23,12 @@ public class RepositoryTest {
 	public void run(ApplicationArguments applicationArguments)
 	throws Exception{
 		Vendedor sislon = new Vendedor(ID_VENDEDOR_SISLON,"Sislon");
-		Vendedor irismar = new Vendedor(ID_VENDEDOR_IRISMAR,"Irismar");
-		CotacaoDeProduto cotacao = new CotacaoDeProduto(ID_COTACAO_100, "Item 1", "UNO", "FIRE", "2018", "", "", "");
+		CotacaoDeProduto cotacao = new CotacaoDeProduto(ID_COTACAO_100, "Item 1", "UNO", "FIRE", "2018", "", "", "",sislon);
+		CotacaoDeProduto cotacao2 = new CotacaoDeProduto(ID_COTACAO_101, "Item 2", "UNO", "MILLE", "2019", "", "", "",sislon);
 		List<CotacaoDeProduto> cotacoes = new ArrayList<CotacaoDeProduto>();
 		cotacoes.add(cotacao);
+		cotacoes.add(cotacao2);
+		
 
 		
 	}

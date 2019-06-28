@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class Vendedor {
@@ -21,6 +22,7 @@ public class Vendedor {
 	@GeneratedValue	(strategy=GenerationType.IDENTITY)
 	private Long id;
 	@NotNull
+	@Length(min=2, max=30,message="O tamanho do nome deve ser entre {min} e {max} caracteres")
 	private String nome;
 	@OneToMany
 	@Cascade(CascadeType.ALL)
@@ -49,5 +51,9 @@ public class Vendedor {
 		this.id = id;
 		this.nome = nome;
 	}
+	public Vendedor() {
+		
+	}
+	
 	
 }

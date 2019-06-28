@@ -4,7 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class CotacaoDeProduto {
@@ -13,13 +16,20 @@ public class CotacaoDeProduto {
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private	Long	id;
 	@NotNull
+	@Length(min=2,	max=30,message=	"O	tamanho	da descrição deve ser entre	{min}	e	{max}	caracteres") 
 	private String descricao;
 	@NotNull
+	@Length(min=2,	max=30,message=	"O	tamanho do veiculo	deve ser entre	{min}	e	{max}	caracteres") 
 	private String veiculo;
 	@NotNull
+	@Length(min=2,	max=30,message=	"O	tamanho	do modelo de carro deve ser	entre	{min}	e	{max}	caracteres") 
 	private String modeloCarro;
 	@NotNull
+	@Length(min=2,	max=30,message=	"O campo Ano deve ser	entre	{min}	e	{max}	caracteres") 
 	private String anoCarro;
+	@ManyToOne
+	@NotNull(message= "O campo vendedor não pode ser nulo")
+	private Vendedor vendedor;
 	private String chassi;
 	private String referencia;
 	private String observacao;
@@ -72,8 +82,18 @@ public class CotacaoDeProduto {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
+	
+	
+	public Vendedor getVendedor() {
+		return vendedor;
+	}
+	public void setVendedor(Vendedor vendedor) {
+		this.vendedor = vendedor;
+	}
+	public CotacaoDeProduto() {
+	}
 	public CotacaoDeProduto(Long id, @NotNull String descricao, @NotNull String veiculo, @NotNull String modeloCarro,
-			@NotNull String anoCarro, String chassi, String referencia, String observacao) {
+			@NotNull String anoCarro, String chassi, String referencia, String observacao, @NotNull Vendedor vendedor) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
@@ -83,6 +103,7 @@ public class CotacaoDeProduto {
 		this.chassi = chassi;
 		this.referencia = referencia;
 		this.observacao = observacao;
+		this.vendedor = vendedor;
 	}
 	
 	
