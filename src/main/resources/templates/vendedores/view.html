@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout">
+<head>
+
+<title>Insert title here</title>
+</head>
+<body>
+<div layout:fragment="content" class="container">
+		<div class="alert alert-success" th:if="${globalMessage}"
+			th:text="${globalMessage}">vendedor cadastrado com sucesso</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nome</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td id="id" th:text="${vendedor.id}">123</td>
+					<td id="nome" th:text="${vendedor.nome}">Nome...</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="pull-left">
+			<a href="form.html" th:href="@{'/vendedores/alterar/' + ${vendedor.id}}">alterar</a>
+			| <a href="clientes" th:href="@{'/vendedores/remover/' + ${vendedor.id}}">remover</a>
+		    | <a th:href="@{/vendedores/}" href="list.html">voltar</a>
+		    | <a href="form.html" th:href="@{/vendedores/novo}">Novo Vendedor</a>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Vendedores</title>
+</head>
+<body>
+<div layout:fragment="content" class="input-form">
+		
+		<div class="container-fluid">
+		 <form id="vendedorForm" th:action="@{/vendedores/(form)}" th:object="${vendedor}" action="#" method="post"  class="form-horizontal">
+			<div th:if="${#fields.hasErrors('*')}" class="alert alert-error">
+				<p th:each="error : ${#fields.errors('*')}" th:text="${error}">Erros de Validação</p>
+			</div>
+			
+			<input type="hidden" th:field="*{id}" th:class="${#fields.hasErrors('id')} ? 'field-error'" />
+			 
+			<div class="form-group">
+			 <label for="nome">Nome:</label> 
+			 <input class="form-control" type="text" th:field="*{nome}" th:class="${#fields.hasErrors('nome')} ? 'field-error'" />
+			</div>
+			<div class="col-sm-offset-2 col-sm-10">
+				<input type="submit" value="Gravar" />
+			</div>
+			<br/>
+			<a th:href="@{/vendedores/}" href="vendedores.html"> voltar </a>
+		</form>
+			</div>
+	</div>
+</body>
+</html>
