@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <title>Comunicador Jal Autopeças</title>
-
+	
+    <title>Plataforma Interna JAL</title>
+	
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/simple-sidebar.css}"/>
 </head>
@@ -17,7 +18,7 @@
       <div class="sidebar-heading"><a th:href="@{/}" href="home.html"><img th:src="@{/images/logo.png}" class="img-fluid" alt="Responsive image" style="width:40%;"></a> </div>
       <div class="list-group list-group-flush">
         <a th:href="@{/cotacao/}" href="cotacao.html" class="list-group-item list-group-item-action bg-light">Cotação de Produtos</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Sugestão de Cadastro</a>
+        <a th:href="@{/produto/}" href="produto.html" class="list-group-item list-group-item-action bg-light">Sugestão de Cadastro</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Orçamento Concorrência</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Sugestões Diversas</a>
       </div>

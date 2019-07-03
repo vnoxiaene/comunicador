@@ -1,7 +1,5 @@
 package com.jalautopecas.models;
 
-
-
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -19,41 +17,58 @@ import org.hibernate.validator.constraints.Length;
 public class Vendedor {
 
 	@Id
-	@GeneratedValue	(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotNull
-	@Length(min=2, max=30,message="O tamanho do nome deve ser entre {min} e {max} caracteres")
+	@Length(min = 2, max = 30, message = "O tamanho do nome deve ser entre {min} e {max} caracteres")
 	private String nome;
 	@OneToMany
 	@Cascade(CascadeType.ALL)
 	private List<CotacaoDeProduto> cotacoes;
+	@OneToMany
+	@Cascade(CascadeType.ALL)
+	private List<SugestaoDeCadastro> cadastros;
+
+	public List<SugestaoDeCadastro> getCadastros() {
+		return cadastros;
+	}
+
+	public void setCadastros(List<SugestaoDeCadastro> cadastros) {
+		this.cadastros = cadastros;
+	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public List<CotacaoDeProduto> getCotacoes() {
 		return cotacoes;
 	}
+
 	public void setCotacoes(List<CotacaoDeProduto> cotacoes) {
 		this.cotacoes = cotacoes;
 	}
+
 	public Vendedor(Long id, @NotNull String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
 	}
+
 	public Vendedor() {
-		
+
 	}
-	
-	
+
 }

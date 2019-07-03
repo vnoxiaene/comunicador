@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout">
+<head>
+<meta charset="utf-8">
+ <title>Sugestão de Cadastro de Produto</title>
+</head>
+<body>
+	<h1 layout:fragment="header">Sugestão de Cadastro</h1>
+	<div layout:fragment="content" class="well">
+		<div class="alert alert-success" th:if="${globalMessage}"
+			th:text="${globalMessage}">Sugestão cadastrada com sucesso</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Vendedor</th>
+					<th>Descrição</th>
+					<th>Veiculo</th>
+					<th>Ano</th>
+					<th>Modelo Carro</th>
+					<th>Data e hora</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${produto.id}">1</td>
+					<td th:text="${produto.vendedor != null} ? ${produto.vendedor.nome}"> nome </td>
+					<td th:text="${produto.descricao}">descricao</td>
+					<td th:text="${produto.veiculo}">veiculo</td>
+					<td th:text="${produto.ano}">ano</td>
+					<td th:text="${produto.modelo}">Modelo do Carro</td>
+					<td id="data" th:text="${produto.datadeabertura}">Data de Abertura</td>					
+				</tr>
+			</tbody>
+		</table>
+		<div class="pull-left">
+			<a href="#">responder</a>
+		    | <a th:href="@{/produto/}" href="list.html">voltar</a>
+		</div>
+	</div>
+</body>
+</html>

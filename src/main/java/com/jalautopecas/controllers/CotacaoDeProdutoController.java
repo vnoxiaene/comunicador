@@ -1,5 +1,6 @@
 package com.jalautopecas.controllers;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,45 +24,49 @@ import com.jalautopecas.repositories.VendedorRepository;
 @Controller
 @RequestMapping("/cotacao")
 public class CotacaoDeProdutoController {
-	
+
 	private final String COTACAO_URI = "cotacao/";
-	private final CotacaoDeProdutoRepository  cotacaoDeProdutoRepository;
+	private final CotacaoDeProdutoRepository cotacaoDeProdutoRepository;
 	private final VendedorRepository vendedorRepository;
-	
-	public CotacaoDeProdutoController(CotacaoDeProdutoRepository cotacaoDeProdutoRepository, VendedorRepository vendedorRepository) {
+
+	public CotacaoDeProdutoController(CotacaoDeProdutoRepository cotacaoDeProdutoRepository,
+			VendedorRepository vendedorRepository) {
 		this.cotacaoDeProdutoRepository = cotacaoDeProdutoRepository;
 		this.vendedorRepository = vendedorRepository;
 	}
+
 	@GetMapping("/")
 	public ModelAndView list() {
 		Iterable<CotacaoDeProduto> cotacoes = this.cotacaoDeProdutoRepository.findAll();
-		return new ModelAndView(COTACAO_URI+"list","cotacoes",cotacoes);
-				}
-	
-	@GetMapping("{id}")
-	public ModelAndView view(@PathVariable("id") CotacaoDeProduto cotacao)
-	{
-		return new ModelAndView(COTACAO_URI+"view","cotacao", cotacao);
+		return new ModelAndView(COTACAO_URI + "list", "cotacoes", cotacoes);
 	}
-	
+
+	@GetMapping("{id}")
+	public ModelAndView view(@PathVariable("id") CotacaoDeProduto cotacao) {
+		return new ModelAndView(COTACAO_URI + "view", "cotacao", cotacao);
+	}
 
 	@GetMapping("/novo")
 	public ModelAndView createForm(@ModelAttribute("cotacao") CotacaoDeProduto cotacao) {
-		Map<String,Object> model = new HashMap<String, Object>();
+		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("todosVendedores", vendedorRepository.findAll());
-		return new ModelAndView(COTACAO_URI+"form",model);
+		return new ModelAndView(COTACAO_URI + "form", model);
 	}
+
 	@PostMapping(params = "form")
-	public ModelAndView create(@Valid @ModelAttribute("cotacao") CotacaoDeProduto cotacao, BindingResult result, RedirectAttributes redirect) {
-		if (result.hasErrors()) { return new ModelAndView(COTACAO_URI + "form","formErrors",result.getAllErrors()); }
-		else {
+	public ModelAndView create(@Valid @ModelAttribute("cotacao") CotacaoDeProduto cotacao, BindingResult result,
+			RedirectAttributes redirect) {
+		cotacao.setDatadeabertura(new Date());
+		if (result.hasErrors()) {
+			return new ModelAndView(COTACAO_URI + "form", "formErrors", result.getAllErrors());
+		} else {
 			Vendedor v = vendedorRepository.findOne(cotacao.getVendedor().getId());
 			cotacao = this.cotacaoDeProdutoRepository.save(cotacao);
 			v.getCotacoes().add(cotacao);
 			this.vendedorRepository.save(v);
 		}
-		redirect.addFlashAttribute("globalMessage","Cotação de produto gravada com sucesso");
-		return new ModelAndView("redirect:/"+COTACAO_URI+"{cotacao.id}","cotacao.id",cotacao.getId());
+		redirect.addFlashAttribute("globalMessage", "Cotação de produto gravada com sucesso");
+		return new ModelAndView("redirect:/" + COTACAO_URI + "{cotacao.id}", "cotacao.id", cotacao.getId());
 	}
 
 }
